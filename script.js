@@ -88,12 +88,13 @@ const render = () => {
     flight += gravity;
     flight2 += gravity;
     flyHeight = Math.min(flyHeight + flight, canvas.height - size[1]);
-    flyHeight2 = Math.min(flyHeight2 + flight2, canvas.height - size[1]);
+    flyHeight2 = Math.min(flyHeight2 + flight2, canvas.height - size[1]); 
   } else {
     ctx.drawImage(img, 432, Math.floor((index % 9) / 3) * size[1], ...size, ((canvas.width / 2) - size[0] / 2), flyHeight, ...size);
-    ctx.drawImage(img, 432, Math.floor((index % 9) / 3) * size[1], ...size, ((canvas.width / 2) - size[0] / 2) + 100, flyHeight2, ...size); // Dessiner le deuxième joueur
+    ctx.drawImage(img, 432, Math.floor((index % 9) / 3) * size[1], ...size, ((canvas.width / 2) - size[0] / 2), flyHeight2 - size[1] - 50, ...size); // Dessiner le deuxième joueur au-dessus du premier joueur
+    flyHeight2 = flyHeight - size[0] - 50;
     flyHeight = (canvas.height / 2) - (size[1] / 2);
-    flyHeight2 = (canvas.height / 2) - (size[1] / 2);
+    
     ctx.fillText(`Best score : ${bestScore}`, 85, 245);
     ctx.fillText('Click to play', 90, 535);
     ctx.font = "bold 30px courier";
@@ -110,18 +111,19 @@ const render = () => {
 setup();
 img.onload = render;
 document.addEventListener('click', () => gamePlaying = true);
-document.addEventListener('keydown', (e) => {
-    if (e.code === 'ArrowUp') {
+
+// Gérer les touches du premier joueur
+document.addEventListener('keydown', (a) => {
+    if (a .code.toLowerCase === 'keyq') {
         flight = jump;
     }
 });
 
-window.onclick = () => flight = jump;
 
 
 // Gérer les touches du deuxieme joueur
 document.addEventListener('keydown', (e) => {
-  if (e.code === 'Space') {
+  if (e.code.toLowerCase() === 'keyp') {
     flight2 = jump; 
   }
 });
